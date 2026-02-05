@@ -1,0 +1,20 @@
+[
+  {
+    "id": "843c7ba0-cf26-4dbe-8b08-706493d1dac7",
+    "title": "Teclado Mecanico",
+    "description": "Teclado mecanico inalambrico",
+    "price": 2000,
+    "thumbnail": "teclado.jpg",
+    "code": "Mlkp1241",
+    "stock": 20
+  },
+  {
+    "id": "4e409922-27d6-4fa1-ac53-1de2c5022704",
+    "title": "Mouse Rojo",
+    "description": "Mouse inalambrico",
+    "price": 1500,
+    "thumbnail": "mouse.jpg",
+    "code": "Plmk1231",
+    "stock": 5
+  }
+]
