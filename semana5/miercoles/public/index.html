@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+</head>
+<body>
+  <h1>Home</h1>
+  <form action="http://localhost:8080/api/products" method="POST" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="nombre de producto">
+    <input type="text" name="description" placeholder="descripcion">
+    <input type="number" name="price" placeholder="precio">
+    <input type="text" name="code" placeholder="codigo">
+    <input type="number" name="stock" placeholder="stock">
+    <input type="file" name="file0" >
+
+    <button type="submit">Agregar producto</button>
+  </form>
+</body>
+</html>
