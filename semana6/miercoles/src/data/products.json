@@ -52,5 +52,23 @@
     "code": "auriculares-ares-h120",
     "stock": 8,
     "thumbnail": "/img/ARES.png"
+  },
+  {
+    "id": "0f24d4e1-237a-4006-be1e-e7331fa9e3f2",
+    "title": "Producto 7",
+    "description": "Descripcion 7",
+    "price": 1500,
+    "code": "mknj123dasd",
+    "stock": 1,
+    "thumbnail": "/img/1772063967712-auriculares-redragon.jpg"
+  },
+  {
+    "id": "14635d59-28be-4c77-ab21-529f66cf8c01",
+    "title": "Producto 8",
+    "description": "Descripcion 8",
+    "price": 300,
+    "code": "mknj12312312",
+    "stock": 6,
+    "thumbnail": "/img/1772064035875-dog.jpg"
   }
 ]
