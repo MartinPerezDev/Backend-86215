@@ -38,7 +38,7 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ["auriculares", "teclados", "mouse"]
+    enum: ["auriculares", "teclados", "mouse", "webcams"]
   },
   thumbnail: {
     type: String,

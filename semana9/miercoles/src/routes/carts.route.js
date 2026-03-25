@@ -19,21 +19,23 @@ cartRouter.post("/:cid/product/:pid", async (req, res) => {
     const { cid, pid } = req.params;
     const { quantity } = req.body;
 
+    if (!Number.isInteger(quantity) || quantity <= 0) return res.status(400).json({ status: "error", message: "La cantidad debe ser un numero entero mayor a 0" });
+
     //verificar que el producto a agregar existe
     const product = await Product.findById(pid).lean();
-    if(!product) return res.status(404).json({ status: "error", message: "Producto no encontrado" });
+    if (!product) return res.status(404).json({ status: "error", message: "Producto no encontrado" });
 
     //obtener carrito
     const cart = await Cart.findById(cid);
-    if(!cart) return res.status(404).json({ status: "error", message: "Carrito no encontrado" });
-    
-    //buscar si el producto ya existe en el carrito
-    const productIndex = cart.products.findIndex( (dataProduct) => dataProduct.product == pid );
+    if (!cart) return res.status(404).json({ status: "error", message: "Carrito no encontrado" });
 
-    if(productIndex !== -1){
+    //buscar si el producto ya existe en el carrito
+    const productIndex = cart.products.findIndex((dataProduct) => dataProduct.product == pid);
+
+    if (productIndex !== -1) {
       //producto existe en el carrito, sumamos sus cantidades
       cart.products[productIndex].quantity += quantity;
-    }else{
+    } else {
       //producto no existe en el carrito, lo agregamos como nuevo
       cart.products.push({ product: pid, quantity });
     }
@@ -50,7 +52,7 @@ cartRouter.get("/:cid", async (req, res) => {
   try {
     const cid = req.params.cid;
     const cart = await Cart.findById(cid).populate("products.product");
-    if(!cart) return res.status(404).json({ status: "error", message: "Carrito no encontrado" });
+    if (!cart) return res.status(404).json({ status: "error", message: "Carrito no encontrado" });
 
     res.status(200).json({ status: "success", payload: cart.products });
   } catch (error) {

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import paginate from "mongoose-paginate-v2"
 
 const productSchema = new mongoose.Schema({
   title: {
@@ -56,9 +55,6 @@ productSchema.index({ price: 1 });
 
 //indice compuesto
 //productSchema.index({ category: 1, title: 1 });
-
-//plugins
-productSchema.plugin(paginate);
 
 const Product = mongoose.model("Product", productSchema);
 

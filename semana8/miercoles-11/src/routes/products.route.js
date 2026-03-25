@@ -16,13 +16,8 @@ productsRouter.post("/", async (req, res) => {
 
 productsRouter.get("/", async (req, res) => {
   try {
-    const { limit = 10 , page = 1 } = req.query; 
-
-    const data = await Product.paginate( {} , { limit, page } );
-    const products = data.docs;
-    delete data.docs;
-
-    res.status(200).json({ status: "success", payload: products, ...data });
+    const products = await Product.find().lean();
+    res.status(200).json({ status: "success", payload: products });
   } catch (error) {
     res.status(500).json({ status: "error", message: "Error al listar los productos" });
   }
