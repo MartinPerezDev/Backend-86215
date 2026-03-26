@@ -9,33 +9,36 @@
 
     <section class="product-grid">
       {{#each products}}
-        <article class="product-card">
-          <div class="product-card__media">
-            <img src="{{this.thumbnail}}" alt="{{this.title}}">
-          </div>
-
-          <div class="product-card__body">
-            <h3 class="product-card__title">{{this.title}}</h3>
-          </div>
-
-          <div class="product-card__footer">
-            <div>
-              <p class="product-card__meta-label">Precio</p>
-              <p class="product-card__price">${{this.price}}</p>
-            </div>
-          </div>
-        </article>
-      {{else}}
-        <div class="empty-state">
-          <h3>No hay productos para mostrar</h3>
-          <p>Cuando cargues productos en la base, apareceran aqui.</p>
+      <article class="product-card">
+        <div class="product-card__media">
+          <img src="{{this.thumbnail}}" alt="{{this.title}}">
         </div>
+
+        <div class="product-card__body">
+          <h3 class="product-card__title">{{this.title}}</h3>
+        </div>
+
+        <div class="product-card__footer">
+          <div>
+            <p class="product-card__meta-label">Precio</p>
+            <p class="product-card__price">${{this.price}}</p>
+          </div>
+          <a href="/detail/{{this._id}}">
+            <button>Ver detalles</button>
+          </a>
+        </div>
+      </article>
+      {{else}}
+      <div class="empty-state">
+        <h3>No hay productos para mostrar</h3>
+        <p>Cuando cargues productos en la base, apareceran aqui.</p>
+      </div>
       {{/each}}
     </section>
 
     <nav class="pagination" aria-label="Paginacion de productos">
       {{#each links}}
-        <a class="pagination__link" href="{{this.link}}">{{this.number}}</a>
+      <a class="pagination__link" href="{{this.link}}">{{this.number}}</a>
       {{/each}}
     </nav>
   </section>

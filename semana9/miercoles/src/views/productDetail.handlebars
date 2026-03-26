@@ -1,0 +1,61 @@
+<div>
+  <h1>Detalle del producto</h1>
+
+  {{#with product}}
+  <div>
+    <img src={{thumbnail}} alt="{{title}}">
+    <p>{{title}}</p>
+    <p>{{description}}</p>
+    <p>Precio: ${{price}}</p>
+
+    <div>
+      <button onclick="decreaseQuantity()">-</button>
+      <p id="quantity">1</p>
+      <button onclick="addQuantity()">+</button>
+      <button onclick="addProduct()" >Agregar al carrito</button>
+    </div>
+  </div>
+  {{/with}}
+</div>
+<script>
+  let count = 1;
+
+  const addQuantity = () => {
+    if (count < "{{product.stock}}") {
+      count++;
+      document.getElementById("quantity").innerText = count;
+    }
+  };
+
+  const decreaseQuantity = () => {
+    if (count > 1) {
+      count--;
+      document.getElementById("quantity").innerText = count;
+    }
+  };
+
+  const createNewCart = async() => {
+    const response = await fetch("http://localhost:8080/api/carts", { method: "POST" });
+    const data = await response.json();
+    return data.payload._id;
+  };
+
+  const addProduct = async() => {
+    try{
+      let cid = localStorage.getItem("cart-id-my-ecommerce");
+
+      //si el carrito no existe en el localStorage entonces lo creamos y lo guardamos
+      if(!cid){
+        cid = await createNewCart();
+        //guardamos el id del carrito nuevo en el localStorage
+        localStorage.setItem("cart-id-my-ecommerce", cid);
+      }
+
+      //guardar el producto en el carrito
+      //lanzar un mensaje en la interfaz
+
+    }catch(error){
+      console.log(error);
+    }
+  };
+</script>

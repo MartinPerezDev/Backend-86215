@@ -60,4 +60,55 @@ cartRouter.get("/:cid", async (req, res) => {
   }
 });
 
+//cambiar la cantidad de un producto en el carrito
+cartRouter.put("/:cid/product/:pid", async (req, res) => {
+  try {
+    const { cid, pid } = req.params;
+    const { quantity } = req.body;
+    if (!Number.isInteger(quantity) || quantity <= 0) return res.status(400).json({ status: "error", message: "La cantidad debe ser un numero entero mayor a 0" });
+
+    const cart = await Cart.findById(cid);
+    if (!cart) return res.status(404).json({ status: "error", message: "Carrito no encontrado" });
+
+    const productIndex = cart.products.findIndex((dataProduct) => dataProduct.product == pid);
+    if (productIndex === -1) return res.status(404).json({ status: "error", message: "Producto no encontrado" });
+
+    cart.products[productIndex].quantity = quantity;
+
+    await cart.save();
+
+    res.status(200).json({ status: "success", payload: cart.products });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: "Error al actualizar la cantidad del producto en el carrito" });
+  }
+});
+
+//borrar un producto de un carrito
+cartRouter.delete("/:cid/product/:pid", async (req, res) => {
+  try {
+    const { cid, pid } = req.params;
+
+    const updatedCart = await Cart.findByIdAndUpdate(cid, { $pull: { products: { product: pid } } }, { new: true });
+    if (!updatedCart) return res.status(404).json({ status: "error", message: "Carrito no encontrado" });
+
+    res.status(200).json({ status: "success", payload: updatedCart.products });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: "Error al borrar un producto de el carrito" });
+  }
+});
+
+//vaciar carrito completamente
+cartRouter.delete("/:cid", async (req, res) => {
+  try {
+    const cid = req.params.cid;
+
+    const updatedCart = await Cart.findByIdAndUpdate(cid, { $set: { products: [] } }, { new: true });
+    if (!updatedCart) return res.status(404).json({ status: "error", message: "Carrito no encontrado" });
+
+    res.status(204).send({});
+  } catch (error) {
+    res.status(500).json({ status: "error", message: "Error al borrar los productos de el carrito" });
+  }
+});
+
 export default cartRouter;
